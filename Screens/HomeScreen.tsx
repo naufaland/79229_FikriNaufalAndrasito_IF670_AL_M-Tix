@@ -14,24 +14,33 @@ import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import LocationDrawer from "../components/LocationDrawer";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [selectedLocation, setSelectedLocation] = useState("JAKARTA");
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const handleOpenDrawer = () => {
-    console.log("Opening drawer"); // Add this for debugging
+    console.log("Opening drawer");
     setDrawerVisible(true);
   };
 
   const handleCloseDrawer = () => {
-    console.log("Closing drawer"); // Add this for debugging
+    console.log("Closing drawer");
     setDrawerVisible(false);
   };
 
   const handleSelectLocation = (location) => {
-    console.log("Selected location:", location); // Add this for debugging
+    console.log("Selected location:", location);
     setSelectedLocation(location);
     setDrawerVisible(false);
+  };
+
+  // Navigation handler for "See all" buttons
+  const navigateToMovies = (initialTab = "nowPlaying") => {
+    navigation.navigate("Movies", { initialTab });
+  };
+
+  const navigateToFood = () => {
+    navigation.navigate("Food");
   };
 
   return (
@@ -59,7 +68,7 @@ const HomeScreen = () => {
             <TouchableOpacity
               style={styles.locationButton}
               onPress={handleOpenDrawer}
-              activeOpacity={0.7} // Add this for better touch feedback
+              activeOpacity={0.7}
             >
               <Ionicons name="location-sharp" size={20} color="white" />
               <Text style={styles.locationText}>{selectedLocation}</Text>
@@ -72,7 +81,6 @@ const HomeScreen = () => {
         </View>
 
         <ScrollView style={styles.scrollContent}>
-          {/* Carousel for Snow White */}
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -80,55 +88,38 @@ const HomeScreen = () => {
           >
             <View style={styles.carouselItem}>
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/350x150/660066/FFFFFF?text=Snow+White+Merchandise",
-                }}
+                source={require("../assets/MovieNight.png")}
                 style={styles.bannerImage}
               />
             </View>
             <View style={styles.carouselItem}>
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/350x150/660066/FFFFFF?text=Snow+White+Movie",
-                }}
+                source={require("../assets/GrandOpening.png")}
                 style={styles.bannerImage}
               />
             </View>
             <View style={styles.carouselItem}>
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/350x150/660066/FFFFFF?text=Ramadan+Special",
-                }}
+                source={require("../assets/Coklat.png")}
                 style={styles.bannerImage}
               />
             </View>
           </ScrollView>
 
-          {/* Rest of your code remains the same */}
-          {/* Movie Card Refund */}
-          <View style={styles.movieCardRefund}>
-            <Text style={styles.refundTitle}>KESEMPATAN TERAKHIR</Text>
-            <Text style={styles.refundSubtitle}>
-              REFUND SALDO XXI Movie Card
-            </Text>
-            <Text style={styles.refundPeriod}>
-              Periode refund berakhir di 16 September 2025
-            </Text>
-            <TouchableOpacity style={styles.refundButton}>
-              <Text style={styles.refundButtonText}>
-                KLIK UNTUK INFO LENGKAP
-              </Text>
-            </TouchableOpacity>
-          </View>
-
           {/* Navigation Icons */}
           <View style={styles.navIconsContainer}>
-            <TouchableOpacity style={styles.navIconButton}>
+            <TouchableOpacity
+              style={styles.navIconButton}
+              onPress={() => navigateToMovies()}
+            >
               <Ionicons name="film-outline" size={24} color="#4ECDC4" />
               <Text style={styles.navText}>Movies</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.navIconButton}>
+            <TouchableOpacity
+              style={styles.navIconButton}
+              onPress={navigateToFood}
+            >
               <Ionicons name="fast-food-outline" size={24} color="#FF6B6B" />
               <Text style={styles.navText}>m.food</Text>
             </TouchableOpacity>
@@ -148,7 +139,7 @@ const HomeScreen = () => {
           <View style={styles.sectionContainer}>
             <View style={styles.sectionTitleRow}>
               <Text style={styles.sectionTitle}>Now playing</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigateToMovies("nowPlaying")}>
                 <View style={styles.seeAllButton}>
                   <Text style={styles.seeAllText}>See all</Text>
                   <Ionicons name="chevron-forward" size={16} color="#4ECDC4" />
@@ -162,26 +153,26 @@ const HomeScreen = () => {
               style={styles.movieCarousel}
             >
               <MovieCard
-                title="PABRIK GULA UNGU"
-                imageUrl="https://via.placeholder.com/180x250/121212/FF0000?text=PABRIK+GULA+UNGU"
-                duration="2h 13m"
-                rating="D21+"
+                title="DEADPOOL"
+                imageUrl={require("../assets/DeadPool.jpeg")}
+                duration="2h 6m"
+                rating="R18+"
                 format="2D"
                 isAdvance={true}
               />
               <MovieCard
-                title="ANIMATION MOVIE"
-                imageUrl="https://via.placeholder.com/180x250/121212/4ECDC4?text=ANIMATION+MOVIE"
-                duration="1h 50m"
-                rating="SU"
-                format="2D"
-                isAdvance={true}
-              />
-              <MovieCard
-                title="ACTION MOVIE"
-                imageUrl="https://via.placeholder.com/180x250/121212/FFD166?text=ACTION+MOVIE"
-                duration="2h 05m"
+                title="THE BATMAN"
+                imageUrl={require("../assets/TheBatman.jpeg")}
+                duration="2h 56m"
                 rating="R13+"
+                format="2D"
+                isAdvance={true}
+              />
+              <MovieCard
+                title="ROGUE ONE"
+                imageUrl={require("../assets/RogueOne.jpeg")}
+                duration="2h 13m"
+                rating="PG-13"
                 format="2D"
                 isAdvance={false}
               />
@@ -192,7 +183,7 @@ const HomeScreen = () => {
           <View style={styles.sectionContainer}>
             <View style={styles.sectionTitleRow}>
               <Text style={styles.sectionTitle}>Coming soon to XXI</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigateToMovies("comingSoon")}>
                 <View style={styles.seeAllButton}>
                   <Text style={styles.seeAllText}>See all</Text>
                   <Ionicons name="chevron-forward" size={16} color="#4ECDC4" />
@@ -207,29 +198,28 @@ const HomeScreen = () => {
             >
               <UpcomingMovieCard
                 title="A MINECRAFT MOVIE"
-                imageUrl="https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=MINECRAFT"
+                imageUrl={require("../assets/MovieDummy.png")}
               />
               <UpcomingMovieCard
                 title="ALARUM"
-                imageUrl="https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=ALARUM"
+                imageUrl={require("../assets/MovieDummy.png")}
               />
               <UpcomingMovieCard
                 title="ANAK MEDAL"
-                imageUrl="https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=ANAK+MEDAL"
+                imageUrl={require("../assets/MovieDummy.png")}
               />
               <UpcomingMovieCard
                 title="MOVIE 4"
-                imageUrl="https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=MOVIE+4"
+                imageUrl={require("../assets/MovieDummy.png")}
               />
             </ScrollView>
           </View>
 
-          {/* Remaining code... */}
           {/* Promos Section */}
           <View style={styles.sectionContainer}>
             <View style={styles.sectionTitleRow}>
               <Text style={styles.sectionTitle}>Promos for a great time</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("Promos")}>
                 <View style={styles.seeAllButton}>
                   <Text style={styles.seeAllText}>See all</Text>
                   <Ionicons name="chevron-forward" size={16} color="#4ECDC4" />
@@ -243,21 +233,15 @@ const HomeScreen = () => {
               style={styles.promoCarousel}
             >
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/300x150/121212/FFD700?text=Disney+Snow+White",
-                }}
+                source={require("../assets/MovieNight.png")}
                 style={styles.promoImage}
               />
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/300x150/121212/4ECDC4?text=Snow+White+Movie",
-                }}
+                source={require("../assets/Coklat.png")}
                 style={styles.promoImage}
               />
               <Image
-                source={{
-                  uri: "https://via.placeholder.com/300x150/121212/FF6B6B?text=Ramadan+Special",
-                }}
+                source={require("../assets/GrandOpening.png")}
                 style={styles.promoImage}
               />
             </ScrollView>
@@ -274,16 +258,18 @@ const HomeScreen = () => {
                 <Text style={styles.foodCardTitle}>
                   Watch movies with tasty food & beverages!
                 </Text>
-                <TouchableOpacity style={styles.orderFoodButton}>
+                <TouchableOpacity
+                  style={styles.orderFoodButton}
+                  onPress={navigateToFood}
+                >
                   <Text style={styles.orderFoodButtonText}>Order m.food</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.foodImageContainer}>
                 <Image
-                  source={{
-                    uri: "https://via.placeholder.com/150x150/3F3F3F/FFFFFF?text=POPCORN",
-                  }}
+                  source={require("../assets/mFood.jpg")}
                   style={styles.foodImage}
+                  resizeMode="cover"
                 />
               </View>
             </View>
@@ -309,6 +295,11 @@ const HomeScreen = () => {
                 title="The Premier"
                 description="Enjoy premium experience with luxurious reclining chairs."
                 imageUrl="https://via.placeholder.com/280x150/330033/FF00FF?text=THE+PREMIER"
+              />
+              <StudioCard
+                title="IMAX"
+                description="Experience the ultimate movie experience with IMAX technology."
+                imageUrl="https://via.placeholder.com/280x150/330066/0000FF?text=IMAX"
               />
             </ScrollView>
           </View>
@@ -346,14 +337,20 @@ const MovieCard = ({
           <Text style={styles.advanceTagText}>Advance ticket sales</Text>
         </View>
       )}
-      <Image source={{ uri: imageUrl }} style={styles.moviePoster} />
+      {typeof imageUrl === "string" ? (
+        <Image source={{ uri: imageUrl }} style={styles.moviePoster} />
+      ) : (
+        <Image source={imageUrl} style={styles.moviePoster} />
+      )}
       <Text style={styles.movieTitle} numberOfLines={1}>
         {title}
       </Text>
-      <View style={styles.movieDetails}>
-        <Text style={styles.movieDuration}>{duration}</Text>
-        <Text style={styles.movieRating}>{rating}</Text>
-        <Text style={styles.movieFormat}>{format}</Text>
+
+      {/* Revised movie details section with proper text display */}
+      <View style={styles.movieDetailsContainer}>
+        <Text style={styles.movieInfoText}>
+          {duration} • {rating} • {format}
+        </Text>
       </View>
     </View>
   );
@@ -363,8 +360,12 @@ const MovieCard = ({
 const UpcomingMovieCard = ({ title, imageUrl }) => {
   return (
     <View style={styles.upcomingMovieCard}>
-      <Image source={{ uri: imageUrl }} style={styles.upcomingMoviePoster} />
-      <Text style={styles.upcomingMovieTitle} numberOfLines={1}>
+      {typeof imageUrl === "string" ? (
+        <Image source={{ uri: imageUrl }} style={styles.upcomingMoviePoster} />
+      ) : (
+        <Image source={imageUrl} style={styles.upcomingMoviePoster} />
+      )}
+      <Text style={styles.upcomingMovieTitle} numberOfLines={2}>
         {title}
       </Text>
     </View>
@@ -436,18 +437,18 @@ const styles = StyleSheet.create({
   searchButton: {
     padding: 5,
   },
-  // All other styles remain the same...
-
-  // Using the rest of your styles as provided in the original code
   scrollContent: {
     flex: 1,
-    backgroundColor: "transparent", // Changed from solid color to transparent
+    backgroundColor: "transparent",
   },
   carousel: {
     height: 150,
   },
   carouselItem: {
     marginRight: 2,
+    borderRadius: 10,
+    overflow: "hidden",
+    marginLeft: 15,
   },
   bannerImage: {
     width: 350,
@@ -460,32 +461,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginVertical: 15,
     borderRadius: 10,
-  },
-  refundTitle: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  refundSubtitle: {
-    color: "white",
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  refundPeriod: {
-    color: "#ccc",
-    fontSize: 14,
-    marginBottom: 15,
-  },
-  refundButton: {
-    backgroundColor: "#daa520",
-    padding: 10,
-    borderRadius: 15,
-    alignItems: "center",
-    marginTop: 5,
-  },
-  refundButtonText: {
-    color: "black",
-    fontWeight: "bold",
   },
   navIconsContainer: {
     flexDirection: "row",
@@ -531,27 +506,29 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   movieCarousel: {
-    height: 280,
+    height: 300,
   },
   movieCard: {
     width: 180,
     marginRight: 15,
     position: "relative",
+    marginBottom: 10,
+    height: 300,
   },
   advanceTag: {
     position: "absolute",
-    top: 10,
+    top: 0,
     left: 0,
     backgroundColor: "#4ECDC4",
-    borderTopRightRadius: 5,
-    borderBottomRightRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    borderTopRightRadius: 4,
+    borderBottomRightRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     zIndex: 1,
   },
   advanceTagText: {
     color: "white",
-    fontSize: 12,
+    fontSize: 8,
     fontWeight: "500",
   },
   moviePoster: {
@@ -568,21 +545,37 @@ const styles = StyleSheet.create({
   movieDetails: {
     flexDirection: "row",
     marginTop: 5,
+    alignItems: "center",
+    flexWrap: "nowrap", // Prevent wrapping
   },
   movieDuration: {
     color: "#888",
     fontSize: 12,
-    marginRight: 8,
+    marginRight: 4, // Reduce margin
+  },
+  movieDivider: {
+    color: "#888",
+    fontSize: 10,
+    marginHorizontal: 2,
   },
   movieRating: {
     color: "#888",
     fontSize: 12,
-    marginRight: 8,
+    marginHorizontal: 4, // Use horizontal margin instead
     fontWeight: "bold",
   },
   movieFormat: {
     color: "#888",
     fontSize: 12,
+  },
+  movieDetailsContainer: {
+    marginTop: 5,
+    paddingHorizontal: 2,
+  },
+  movieInfoText: {
+    color: "#888",
+    fontSize: 12,
+    lineHeight: 16,
   },
   upcomingMovieCard: {
     width: 150,
@@ -624,11 +617,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     borderRadius: 10,
     flexDirection: "row",
-    height: 120,
+    height: 150,
     overflow: "hidden",
+    position: "relative",
   },
   foodCardTextContent: {
-    flex: 1,
+    width: "60%",
     padding: 15,
     justifyContent: "center",
   },
@@ -640,26 +634,26 @@ const styles = StyleSheet.create({
   },
   orderFoodButton: {
     backgroundColor: "white",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 20,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 15,
     alignSelf: "flex-start",
   },
   orderFoodButtonText: {
     fontWeight: "500",
   },
   foodImageContainer: {
-    width: 120,
-    justifyContent: "center",
-    alignItems: "center",
+    width: "40%",
+    height: "100%",
+    overflow: "hidden",
   },
   foodImage: {
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
+    height: "100%",
+    width: "100%",
+    resizeMode: "cover",
   },
   studioCarousel: {
-    height: 250,
+    height: 280,
   },
   studioCard: {
     width: 280,
