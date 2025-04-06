@@ -8,113 +8,19 @@ import {
   Image,
   TouchableOpacity,
   StatusBar,
-  Platform,
   FlatList,
+  Platform,
 } from "react-native";
-import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import LocationDrawer from "../components/LocationDrawer";
-import { useNavigation } from "@react-navigation/native";
 
-const MoviesScreen = () => {
-  const navigation = useNavigation();
-  const [selectedTab, setSelectedTab] = useState("nowPlaying");
+const MoviesScreen = ({ navigation, route }) => {
   const [selectedLocation, setSelectedLocation] = useState("JAKARTA");
   const [drawerVisible, setDrawerVisible] = useState(false);
-
-  // Sample movie data - in a real app, this would come from an API
-  const nowPlayingMovies = [
-    {
-      id: 1,
-      title: "PABRIK GULA UNGU",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/FF0000?text=PABRIK+GULA+UNGU",
-      duration: "2h 13m",
-      rating: "D21+",
-      format: "2D",
-      isAdvance: true,
-    },
-    {
-      id: 2,
-      title: "ANIMATION MOVIE",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/4ECDC4?text=ANIMATION+MOVIE",
-      duration: "1h 50m",
-      rating: "SU",
-      format: "2D",
-      isAdvance: true,
-    },
-    {
-      id: 3,
-      title: "ACTION MOVIE",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/FFD166?text=ACTION+MOVIE",
-      duration: "2h 05m",
-      rating: "R13+",
-      format: "2D",
-      isAdvance: false,
-    },
-    {
-      id: 4,
-      title: "COMEDY FILM",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/FF69B4?text=COMEDY+FILM",
-      duration: "1h 45m",
-      rating: "SU",
-      format: "2D",
-      isAdvance: false,
-    },
-    {
-      id: 5,
-      title: "HORROR NIGHT",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/800080?text=HORROR+NIGHT",
-      duration: "1h 58m",
-      rating: "D17+",
-      format: "2D",
-      isAdvance: true,
-    },
-    {
-      id: 6,
-      title: "SCI-FI ADVENTURE",
-      imageUrl:
-        "https://via.placeholder.com/180x250/121212/00FFFF?text=SCI-FI+ADVENTURE",
-      duration: "2h 20m",
-      rating: "R13+",
-      format: "2D",
-      isAdvance: false,
-    },
-  ];
-
-  const comingSoonMovies = [
-    {
-      id: 7,
-      title: "A MINECRAFT MOVIE",
-      imageUrl:
-        "https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=MINECRAFT",
-      releaseDate: "Coming Sep 15",
-    },
-    {
-      id: 8,
-      title: "ALARUM",
-      imageUrl: "https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=ALARUM",
-      releaseDate: "Coming Sep 20",
-    },
-    {
-      id: 9,
-      title: "ANAK MEDAL",
-      imageUrl:
-        "https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=ANAK+MEDAL",
-      releaseDate: "Coming Oct 5",
-    },
-    {
-      id: 10,
-      title: "FUTURE BLOCKBUSTER",
-      imageUrl:
-        "https://via.placeholder.com/150x220/0A0A0A/FFFFFF?text=FUTURE+BLOCKBUSTER",
-      releaseDate: "Coming Oct 12",
-    },
-  ];
+  const [activeTab, setActiveTab] = useState(
+    route.params?.initialTab || "nowPlaying"
+  );
 
   const handleOpenDrawer = () => {
     setDrawerVisible(true);
@@ -129,45 +35,170 @@ const MoviesScreen = () => {
     setDrawerVisible(false);
   };
 
-  const renderNowPlayingMovie = ({ item }) => (
-    <TouchableOpacity
-      style={styles.movieCard}
-      //   onPress={() => navigation.navigate("MovieDetail", { movieId: item.id })}
-    >
-      <View style={styles.movieCardContainer}>
-        {item.isAdvance && (
-          <View style={styles.advanceTag}>
-            <Text style={styles.advanceTagText}>Advance ticket sales</Text>
-          </View>
-        )}
-        <Image source={{ uri: item.imageUrl }} style={styles.moviePoster} />
-        <Text style={styles.movieTitle} numberOfLines={1}>
-          {item.title}
-        </Text>
-        <View style={styles.movieDetails}>
-          <Text style={styles.movieDuration}>{item.duration}</Text>
-          <Text style={styles.movieRating}>{item.rating}</Text>
-          <Text style={styles.movieFormat}>{item.format}</Text>
+  // Sample movie data
+  const nowPlayingMovies = [
+    {
+      id: 1,
+      title: "DEADPOOL",
+      imageSource: require("../assets/DeadPool.jpeg"),
+      duration: "2h 6m",
+      rating: "R18+",
+      format: "2D",
+      isAdvance: true,
+    },
+    {
+      id: 2,
+      title: "THE BATMAN",
+      imageSource: require("../assets/TheBatman.jpeg"),
+      duration: "2h 56m",
+      rating: "R13+",
+      format: "2D",
+      isAdvance: true,
+    },
+    {
+      id: 3,
+      title: "BLADE RUNNER 2049",
+      imageSource: require("../assets/BladeRunner2049.jpeg"),
+      duration: "2h 44m",
+      rating: "R13+",
+      format: "2D",
+      isAdvance: false,
+    },
+    {
+      id: 4,
+      title: "GREEN BOOK",
+      imageSource: require("../assets/GreenBook.jpeg"),
+      duration: "2h 10m",
+      rating: "PG-13",
+      format: "2D",
+      isAdvance: false,
+    },
+    {
+      id: 5,
+      title: "JAWS",
+      imageSource: require("../assets/Jaws.jpeg"),
+      duration: "1h 55m",
+      rating: "PG-13",
+      format: "2D",
+      isAdvance: false,
+    },
+    {
+      id: 6,
+      title: "PARASITE",
+      imageSource: require("../assets/Parasite.jpeg"),
+      duration: "2h 12m",
+      rating: "R17+",
+      format: "2D",
+      isAdvance: true,
+    },
+    {
+      id: 7,
+      title: "ROGUE ONE",
+      imageSource: require("../assets/RogueOne.jpeg"),
+      duration: "2h 13m",
+      rating: "PG-13",
+      format: "2D",
+      isAdvance: false,
+    },
+    {
+      id: 8,
+      title: "SPIDER-MAN: ACROSS THE SPIDER-VERSE",
+      imageSource: require("../assets/Spiderverse.jpeg"),
+      duration: "2h 16m",
+      rating: "PG",
+      format: "2D",
+      isAdvance: true,
+    },
+  ];
+
+  const comingSoonMovies = [
+    {
+      id: 101,
+      title: "A MINECRAFT MOVIE",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Sep 15",
+    },
+    {
+      id: 102,
+      title: "ALARUM",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Sep 20",
+    },
+    {
+      id: 103,
+      title: "ANAK MEDAL",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Oct 5",
+    },
+    {
+      id: 104,
+      title: "FUTURE BLOCKBUSTER",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Oct 12",
+    },
+    {
+      id: 105,
+      title: "THE FANTASTIC FOUR",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Oct 19",
+    },
+    {
+      id: 106,
+      title: "THE FLASH",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Oct 26",
+    },
+    {
+      id: 107,
+      title: "THE MARVELS",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Nov 2",
+    },
+    {
+      id: 108,
+      title: "TOMB RAIDER II",
+      imageSource: require("../assets/MovieDummy.png"),
+      releaseDate: "Coming Nov 9",
+    },
+  ];
+
+  const renderNowPlayingMovieItem = ({ item }) => (
+    <View style={styles.movieCard}>
+      {item.isAdvance && (
+        <View style={styles.advanceTag}>
+          <Text style={styles.advanceTagText}>Advance ticket sales</Text>
         </View>
+      )}
+      {item.imageUrl ? (
+        <Image source={{ uri: item.imageUrl }} style={styles.moviePoster} />
+      ) : (
+        <Image source={item.imageSource} style={styles.moviePoster} />
+      )}
+      <Text style={styles.movieTitle} numberOfLines={2}>
+        {item.title}
+      </Text>
+      <View style={styles.movieDetails}>
+        <Text style={styles.movieDuration}>{item.duration}</Text>
+        <Text style={styles.movieRating}>{item.rating}</Text>
+        <Text style={styles.movieFormat}>{item.format}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 
-  const renderComingSoonMovie = ({ item }) => (
-    <TouchableOpacity
-      style={styles.movieCard}
-      //   onPress={() => navigation.navigate("MovieDetail", { movieId: item.id })}
-    >
-      <View style={styles.movieCardContainer}>
+  const renderComingSoonMovieItem = ({ item }) => (
+    <View style={styles.movieCard}>
+      {item.imageUrl ? (
         <Image source={{ uri: item.imageUrl }} style={styles.moviePoster} />
-        <View style={styles.releaseDateContainer}>
-          <Text style={styles.releaseDateText}>{item.releaseDate}</Text>
-        </View>
-        <Text style={styles.movieTitle} numberOfLines={1}>
-          {item.title}
-        </Text>
+      ) : (
+        <Image source={item.imageSource} style={styles.moviePoster} />
+      )}
+      <View style={styles.releaseDateContainer}>
+        <Text style={styles.releaseDateText}>{item.releaseDate}</Text>
       </View>
-    </TouchableOpacity>
+      <Text style={styles.movieTitle} numberOfLines={2}>
+        {item.title}
+      </Text>
+    </View>
   );
 
   return (
@@ -181,7 +212,7 @@ const MoviesScreen = () => {
         <StatusBar backgroundColor="#121212" barStyle="light-content" />
         <View style={styles.topSpacer} />
 
-        {/* Header */}
+        {/* Fixed Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <TouchableOpacity
@@ -214,14 +245,14 @@ const MoviesScreen = () => {
           <TouchableOpacity
             style={[
               styles.tabButton,
-              selectedTab === "nowPlaying" && styles.activeTabButton,
+              activeTab === "nowPlaying" && styles.activeTabButton,
             ]}
-            onPress={() => setSelectedTab("nowPlaying")}
+            onPress={() => setActiveTab("nowPlaying")}
           >
             <Text
               style={[
                 styles.tabText,
-                selectedTab === "nowPlaying" && styles.activeTabText,
+                activeTab === "nowPlaying" && styles.activeTabText,
               ]}
             >
               Now Playing
@@ -231,14 +262,14 @@ const MoviesScreen = () => {
           <TouchableOpacity
             style={[
               styles.tabButton,
-              selectedTab === "comingSoon" && styles.activeTabButton,
+              activeTab === "comingSoon" && styles.activeTabButton,
             ]}
-            onPress={() => setSelectedTab("comingSoon")}
+            onPress={() => setActiveTab("comingSoon")}
           >
             <Text
               style={[
                 styles.tabText,
-                selectedTab === "comingSoon" && styles.activeTabText,
+                activeTab === "comingSoon" && styles.activeTabText,
               ]}
             >
               Coming Soon
@@ -249,12 +280,12 @@ const MoviesScreen = () => {
         {/* Movie Grid */}
         <FlatList
           data={
-            selectedTab === "nowPlaying" ? nowPlayingMovies : comingSoonMovies
+            activeTab === "nowPlaying" ? nowPlayingMovies : comingSoonMovies
           }
           renderItem={
-            selectedTab === "nowPlaying"
-              ? renderNowPlayingMovie
-              : renderComingSoonMovie
+            activeTab === "nowPlaying"
+              ? renderNowPlayingMovieItem
+              : renderComingSoonMovieItem
           }
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
@@ -359,24 +390,22 @@ const styles = StyleSheet.create({
   movieCard: {
     width: "48%",
     marginBottom: 20,
-  },
-  movieCardContainer: {
     position: "relative",
   },
   advanceTag: {
     position: "absolute",
-    top: 10,
+    top: 0,
     left: 0,
     backgroundColor: "#4ECDC4",
-    borderTopRightRadius: 5,
-    borderBottomRightRadius: 5,
+    borderTopRightRadius: 4,
+    borderBottomRightRadius: 4,
     paddingHorizontal: 8,
     paddingVertical: 4,
     zIndex: 1,
   },
   advanceTagText: {
     color: "white",
-    fontSize: 10,
+    fontSize: 8,
     fontWeight: "500",
   },
   moviePoster: {
@@ -411,13 +440,13 @@ const styles = StyleSheet.create({
   },
   releaseDateContainer: {
     position: "absolute",
-    bottom: 10,
+    bottom: 250,
     left: 0,
     right: 0,
     alignItems: "center",
   },
   releaseDateText: {
-    backgroundColor: "rgba(78, 205, 196, 0.8)", // #4ECDC4 with opacity
+    backgroundColor: "rgba(78, 205, 196, 0.8)",
     color: "white",
     paddingHorizontal: 10,
     paddingVertical: 5,
