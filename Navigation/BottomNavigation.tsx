@@ -7,6 +7,7 @@ import HomeScreen from "../Screens/HomeScreen";
 import MyOrderScreen from "../Screens/MyOrderScreen";
 import PromosScreen from "../Screens/PromoScreen";
 import MyMTIXScreen from "../Screens/MyMTIXScreen";
+import MoviesScreen from "../Screens/MoviesScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,12 +17,20 @@ const BottomNavigation = () => {
       id={undefined}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#E71B1B",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#4ECDC4",
+        tabBarInactiveTintColor: "#8A8A8A",
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#121212",
           height: 60,
           paddingBottom: 10,
+          borderTopWidth: 1,
+          borderTopColor: "#222",
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "500",
         },
       }}
     >
