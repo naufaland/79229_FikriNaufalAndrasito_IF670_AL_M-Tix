@@ -9,6 +9,11 @@ import FoodScreen from "./Screens/FoodScreen";
 import PromosScreen from "./Screens/PromoScreen";
 import MyVoucherScreen from "./Screens/MyVoucherScreen";
 import "./global.css";
+import Login from "./Screens/Login";
+import Register from "./Screens/Register";
+import CreatePin from "./components/CreatePin";
+import ConfirmPin from "./components/ConfirmPin";
+import ConfirmLoginPin from "./Screens/ConfirmLoginPin";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +21,18 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{ headerShown: false }}
+        >
+          {/* Auth Screens */}
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="CreatePin" component={CreatePin} />
+          <Stack.Screen name="ConfirmPin" component={ConfirmPin} />
+          <Stack.Screen name="ConfirmLoginPin" component={ConfirmLoginPin} />
+
+          {/* Main Screens */}
           <Stack.Screen name="MainTabs" component={BottomNavigation} />
           <Stack.Screen name="Movies" component={MoviesScreen} />
           <Stack.Screen name="Food" component={FoodScreen} />
