@@ -31,8 +31,8 @@ const Register = () => {
 
   // Date picker values
   const [selectedDay, setSelectedDay] = useState("4");
-  const [selectedMonth, setSelectedMonth] = useState("November");
-  const [selectedYear, setSelectedYear] = useState("1999");
+  const [selectedMonth, setSelectedMonth] = useState("April");
+  const [selectedYear, setSelectedYear] = useState("2022");
 
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const buttonOpacity = useRef(new Animated.Value(1)).current;
@@ -56,7 +56,6 @@ const Register = () => {
       Platform.OS === "android" ? "keyboardDidHide" : "keyboardWillHide",
       () => {
         setKeyboardVisible(false);
-        // Animate the button to show
         Animated.timing(buttonOpacity, {
           toValue: 1,
           duration: 200,
@@ -94,15 +93,12 @@ const Register = () => {
       return;
     }
 
-    // Show terms modal
     setShowTerms(true);
   };
 
   const handleAgreeTerms = () => {
-    // Close terms modal
     setShowTerms(false);
 
-    // Create user data object
     const userData = {
       fullName,
       phoneNumber,
@@ -113,7 +109,6 @@ const Register = () => {
 
     console.log("Registration data:", userData);
 
-    // Navigate to PIN creation screen with user data
     navigation.navigate("CreatePin", { userData });
   };
 
@@ -123,7 +118,7 @@ const Register = () => {
   };
 
   const showDatePickerModal = () => {
-    Keyboard.dismiss(); // Dismiss keyboard first
+    Keyboard.dismiss();
     setShowDatePicker(true);
     Animated.timing(slideAnimation, {
       toValue: 1,
@@ -264,12 +259,10 @@ const Register = () => {
               </TouchableOpacity>
             </View>
 
-            {/* Extra padding to ensure form can be scrolled past the button */}
             <View style={styles.extraBottomPadding} />
           </View>
         </ScrollView>
 
-        {/* Next button - positioned absolutely and fades when keyboard appears */}
         <Animated.View
           style={[
             styles.nextButtonContainer,

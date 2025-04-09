@@ -40,7 +40,6 @@ const ConfirmLoginPin = () => {
 
       // If PIN is complete (6 digits), validate
       if (newPin.length === 6) {
-        // In a real app we would validate the PIN against stored PIN
         setShowSuccess(true);
 
         // Show success and navigate to profile screen

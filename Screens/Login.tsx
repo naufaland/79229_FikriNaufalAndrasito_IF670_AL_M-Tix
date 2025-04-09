@@ -39,7 +39,6 @@ const Login = () => {
       Platform.OS === "android" ? "keyboardDidShow" : "keyboardWillShow",
       () => {
         setKeyboardVisible(true);
-        // Animate the footer to hide
         Animated.timing(footerOpacity, {
           toValue: 0,
           duration: 200,
@@ -52,7 +51,6 @@ const Login = () => {
       Platform.OS === "android" ? "keyboardDidHide" : "keyboardWillHide",
       () => {
         setKeyboardVisible(false);
-        // Animate the footer to show
         Animated.timing(footerOpacity, {
           toValue: 1,
           duration: 200,
@@ -91,8 +89,6 @@ const Login = () => {
       userData,
     });
 
-    // If we have userData from registration, pass it along
-    // Otherwise just pass the phone number
     if (userData) {
       navigation.navigate("ConfirmLoginPin", {
         phoneNumber: phoneNumber,
@@ -104,7 +100,6 @@ const Login = () => {
   };
 
   const handleCreateAccount = () => {
-    // Navigate to Register screen
     navigation.navigate("Register");
   };
 
