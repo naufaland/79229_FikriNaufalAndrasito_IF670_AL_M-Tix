@@ -51,6 +51,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("Food");
   };
 
+  const navigateToCinema = () => {
+    navigation.navigate("Cinema");
+  };
+
   return (
     <LinearGradient
       colors={["#121212", "#001211", "#013d39", "#01665f"]}
@@ -120,7 +124,10 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.navText}>m.food</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.navIconButton}>
+            <TouchableOpacity
+              style={styles.navIconButton}
+              onPress={navigateToCinema}
+            >
               <FontAwesome name="film" size={22} color="#FFD166" />
               <Text style={styles.navText}>Cinema</Text>
             </TouchableOpacity>
@@ -296,11 +303,12 @@ const styles = StyleSheet.create({
   },
   locationButton: {
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#333",
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "#666",
     borderRadius: 20,
-    paddingHorizontal: 15,
     paddingVertical: 8,
+    paddingHorizontal: 15,
     marginRight: 10,
   },
   locationText: {

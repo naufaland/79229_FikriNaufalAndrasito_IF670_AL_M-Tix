@@ -7,7 +7,6 @@ import HomeScreen from "../Screens/HomeScreen";
 import MyOrderScreen from "../Screens/MyOrderScreen";
 import PromosScreen from "../Screens/PromoScreen";
 import MyMTIXScreen from "../Screens/MyMTIXScreen";
-import MoviesScreen from "../Screens/MoviesScreen";
 
 const Tab = createBottomTabNavigator();
 

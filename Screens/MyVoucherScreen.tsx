@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 import VoucherDrawer from "../components/VoucherDrawer";
 
 const MyVoucherScreen = () => {
@@ -67,7 +68,8 @@ const MyVoucherScreen = () => {
 
         <View style={styles.header}>
           <TouchableOpacity onPress={goBack} style={styles.backButton}>
-            <Text style={styles.backButtonText}>←</Text>
+            {/* Replace text arrow with Ionicons */}
+            <Ionicons name="arrow-back" size={24} color="#FFF" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>My voucher</Text>
         </View>
@@ -161,10 +163,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginRight: 15,
-  },
-  backButtonText: {
-    color: "white",
-    fontSize: 24,
+    padding: 5,
   },
   headerTitle: {
     fontSize: 24,

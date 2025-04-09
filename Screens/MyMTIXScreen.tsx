@@ -35,11 +35,9 @@ const MyMTIXScreen = () => {
     }
   }, [route.params]);
 
-  // Get first letter of name for avatar
   const firstLetter = userData.fullName.charAt(0).toUpperCase();
 
   const handleLogout = () => {
-    // Navigate to login screen
     navigation.navigate("Login");
   };
 
@@ -192,12 +190,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: 30,
+    paddingTop: 40,
     paddingBottom: 10,
   },
   headerTitle: {
     color: "white",
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
   },
   versionText: {

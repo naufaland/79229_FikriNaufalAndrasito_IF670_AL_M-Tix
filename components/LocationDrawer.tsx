@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   backdrop: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: 999, // Increase z-index to ensure it's on top
+    zIndex: 999,
   },
   container: {
     position: "absolute",
@@ -155,9 +155,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#1A1A1A",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    zIndex: 1000, // Higher than backdrop
+    zIndex: 1000,
     paddingBottom: 20,
-    // Add shadow for better visibility
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -177,7 +176,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     marginRight: 15,
-    padding: 5, // Increased touch target
+    padding: 5,
   },
   title: {
     color: "white",

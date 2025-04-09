@@ -40,7 +40,7 @@ const ConfirmPin = () => {
       setConfirmPin(newPin);
       setErrorMessage("");
 
-      // If PIN is complete (6 digits), check if it matches
+      // If PIN is complete (6 digits)
       if (newPin.length === 6) {
         if (newPin === originalPin) {
           setShowSuccess(true);

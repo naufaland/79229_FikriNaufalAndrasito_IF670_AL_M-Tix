@@ -8,6 +8,8 @@ import MoviesScreen from "./Screens/MoviesScreen";
 import FoodScreen from "./Screens/FoodScreen";
 import PromosScreen from "./Screens/PromoScreen";
 import MyVoucherScreen from "./Screens/MyVoucherScreen";
+import OrderHistoryScreen from "./Screens/OrderHistoryScreen";
+import CinemaScreen from "./Screens/CinemaScreen";
 import "./global.css";
 import Login from "./Screens/Login";
 import Register from "./Screens/Register";
@@ -31,13 +33,17 @@ export default function App() {
           <Stack.Screen name="CreatePin" component={CreatePin} />
           <Stack.Screen name="ConfirmPin" component={ConfirmPin} />
           <Stack.Screen name="ConfirmLoginPin" component={ConfirmLoginPin} />
-
           {/* Main Screens */}
           <Stack.Screen name="MainTabs" component={BottomNavigation} />
           <Stack.Screen name="Movies" component={MoviesScreen} />
           <Stack.Screen name="Food" component={FoodScreen} />
           <Stack.Screen name="Promos" component={PromosScreen} />
           <Stack.Screen name="MyVoucher" component={MyVoucherScreen} />
+          <Stack.Screen
+            name="OrderHistoryScreen"
+            component={OrderHistoryScreen}
+          />
+          <Stack.Screen name="Cinema" component={CinemaScreen} />
         </Stack.Navigator>
         <StatusBar style="auto" />
       </NavigationContainer>
