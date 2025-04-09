@@ -28,12 +28,10 @@ const Login = () => {
   const footerOpacity = useState(new Animated.Value(1))[0];
   const [showTerms, setShowTerms] = useState(false);
 
-  // Log received data for debugging
   useEffect(() => {
     console.log("Login screen received userData:", route.params?.userData);
   }, [route.params]);
 
-  // Listen for keyboard events
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       Platform.OS === "android" ? "keyboardDidShow" : "keyboardWillShow",
@@ -65,7 +63,6 @@ const Login = () => {
     };
   }, []);
 
-  // Check for user data when component mounts or route changes
   useEffect(() => {
     if (route.params?.userData) {
       setUserData(route.params.userData);

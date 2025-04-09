@@ -38,11 +38,9 @@ const ConfirmLoginPin = () => {
       setPin(newPin);
       setErrorMessage("");
 
-      // If PIN is complete (6 digits), validate
       if (newPin.length === 6) {
         setShowSuccess(true);
 
-        // Show success and navigate to profile screen
         setTimeout(() => {
           try {
             console.log("Navigating to MyMTIXScreen with user data:", {

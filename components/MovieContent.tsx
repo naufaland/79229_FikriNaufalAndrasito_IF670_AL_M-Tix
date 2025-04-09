@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-// Add navigation prop to component
 interface MovieContentProps {
   navigation?: any;
 }
@@ -17,7 +16,6 @@ const MovieContent: React.FC<MovieContentProps> = ({ navigation }) => {
   const { width } = Dimensions.get("window");
   const isLandscape = width > Dimensions.get("window").height;
 
-  // Handle navigation to Movies screen
   const handleSeeWhatsPlaying = () => {
     if (navigation) {
       navigation.navigate("Movies", { initialTab: "nowPlaying" });

@@ -8,7 +8,7 @@ import {
   Animated,
   Dimensions,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Add this import
+import { Ionicons } from "@expo/vector-icons";
 
 interface HistoryFilterDrawerProps {
   isVisible: boolean;

@@ -19,7 +19,6 @@ const LocationDrawer = ({ visible, onClose, onSelectLocation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const animatedValue = useRef(new Animated.Value(DRAWER_HEIGHT)).current;
 
-  // Sample city data
   const cities = [
     "AMBON",
     "BALIKPAPAN",
@@ -51,21 +50,18 @@ const LocationDrawer = ({ visible, onClose, onSelectLocation }) => {
     "YOGYAKARTA",
   ];
 
-  // Filter cities based on search query
   const filteredCities = cities.filter((city) =>
     city.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
     if (visible) {
-      // Open drawer animation
       Animated.timing(animatedValue, {
         toValue: 0,
         duration: 300,
         useNativeDriver: true,
       }).start();
     } else {
-      // Close drawer animation
       Animated.timing(animatedValue, {
         toValue: DRAWER_HEIGHT,
         duration: 300,
@@ -83,7 +79,6 @@ const LocationDrawer = ({ visible, onClose, onSelectLocation }) => {
     onClose();
   };
 
-  // Don't render anything if not visible
   if (!visible) {
     return null;
   }
