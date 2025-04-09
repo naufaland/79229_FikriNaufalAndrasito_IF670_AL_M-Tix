@@ -19,7 +19,6 @@ const CreatePin = () => {
 
   const [pin, setPin] = useState("");
 
-  // Log received data for debugging
   useEffect(() => {
     console.log("CreatePin received userData:", userData);
   }, [userData]);
@@ -29,9 +28,7 @@ const CreatePin = () => {
       const newPin = pin + number;
       setPin(newPin);
 
-      // If PIN is complete, move to confirmation screen
       if (newPin.length === 6) {
-        // Update the userData with the PIN
         const updatedUserData = {
           ...userData,
           pin: newPin,

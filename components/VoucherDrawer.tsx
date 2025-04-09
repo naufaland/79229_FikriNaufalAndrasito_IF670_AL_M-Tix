@@ -21,7 +21,6 @@ const VoucherDrawer = ({ visible, onClose }) => {
 
   useEffect(() => {
     if (visible) {
-      // Slide up animation
       Animated.parallel([
         Animated.timing(translateY, {
           toValue: 0,
@@ -35,7 +34,6 @@ const VoucherDrawer = ({ visible, onClose }) => {
         }),
       ]).start();
     } else {
-      // Slide down animation
       Animated.parallel([
         Animated.timing(translateY, {
           toValue: height,

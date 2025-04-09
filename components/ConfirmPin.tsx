@@ -22,13 +22,11 @@ const ConfirmPin = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Log received data for debugging
   useEffect(() => {
     console.log("ConfirmPin received:", { originalPin, userData });
   }, [originalPin, userData]);
 
   useEffect(() => {
-    // Clear everything on component mount
     setConfirmPin("");
     setErrorMessage("");
     setShowSuccess(false);
@@ -40,7 +38,6 @@ const ConfirmPin = () => {
       setConfirmPin(newPin);
       setErrorMessage("");
 
-      // If PIN is complete (6 digits)
       if (newPin.length === 6) {
         if (newPin === originalPin) {
           setShowSuccess(true);
@@ -49,7 +46,6 @@ const ConfirmPin = () => {
               "PIN confirmed, navigating to Login with userData:",
               userData
             );
-            // Navigate to Login with user data
             navigation.navigate("Login", {
               userData: {
                 ...userData,
